@@ -4,6 +4,14 @@ from tkinter import Tk, ttk
 #impotando Pillow
 from PIL import Image, ImageTk
 
+# importando barra de progresso do Tlinter
+from tkinter.ttk import Progressbar
+
+#importando Matplotlib
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib.pyplot as plt
+from matplotlib..figure import Fihure
+
 ################# cores ###############
 co0 = "#2e2d2b"
 co1 = "#feffff"
@@ -45,5 +53,27 @@ app_imag_resized = app_imag.resize((45, 45))
 app_imag_tk = ImageTk.PhotoImage(app_imag)
 app_logo = Label(frameCima, image=app_imag, text=" Orçamento pessoal", width=900,compound=LEFT, padx=5,relief=RAISED, anchor=NW, font=('Verdana 20 bold'), bg=co1, fg=co4)
 app_logo.place(x=0, y=0)
+
+# percentagem------------------------------
+
+def porcentagem():
+    1_nome = Label(frameMeio, text="Porcentagem da Receita gasta", height=1,anchor=NM, font=('Verdana 12'), bg=co1, fg=co4)
+    1_nome.place(x=7, y=5)
+
+    style =ttk.style()
+    style.theme_use('default')
+    style.configure("black.Horizontal.TProgressBar", background='#daed6b')
+    style.configure("TProgressBar", thickness=25)
+    bar =Progressbar(frameMeio, length=180,style=black.Horizontal.TProgressBar)
+
+    bar.place(x=10,y=35)
+    bar['value'] = 50
+
+    valor = 50
+
+    1_porcentagem = Label(frameMeio, text="{:,2f}%".format(valor),anchor=NM, font=('Verdana 12'), bg=co1, fg=co4)
+    1_porcentagem.place(x=200, y=35)
+
+porcentagem()
 
 janela.mainloop()
