@@ -4,7 +4,7 @@ import sqlite3 as lite
 
 # %%
 # Criando Conexão
-con = lite.connect('cafeteria.db')
+con = lite.connect('dados.db')
 
 # Criando tabela de categoria
 with con:
