@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import Tk, ttk
 
 #impotando Pillow
+# (instalação terminal : pip install pillow)
 from PIL import Image, ImageTk
 
 # importando barra de progresso do Tlinter
@@ -10,7 +11,7 @@ from tkinter.ttk import Progressbar
 #importando Matplotlib
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
-from matplotlib..figure import Fihure
+from matplotlib.figure import Fihure
 
 ################# cores ###############
 co0 = "#2e2d2b"
@@ -47,6 +48,7 @@ frameBaixo.grid(row=2,column=0, pady=0,padx=10, sticky=NSEW)
 
 # Trabalhando no frame de cima
 
+
 # acessando a imagem
 app_imag = Image.open('confraria do cafe.jpg')
 app_imag_resized = app_imag.resize((45, 45))
@@ -64,14 +66,14 @@ def porcentagem():
     style.theme_use('default')
     style.configure("black.Horizontal.TProgressBar", background='#daed6b')
     style.configure("TProgressBar", thickness=25)
-    bar =Progressbar(frameMeio, length=180,style=black.Horizontal.TProgressBar)
+    bar =Progressbar(frameMeio, length=180,style='black.Horizontal.TProgressBar')
 
     bar.place(x=10,y=35)
     bar['value'] = 50
 
     valor = 50
 
-    1_porcentagem = Label(frameMeio, text="{:,2f}%".format(valor),anchor=NM, font=('Verdana 12'), bg=co1, fg=co4)
+    1_porcentagem = Label(frameMeio, text="{:,.2f}".format(valor),anchor=NW, font=('Verdana 12'), bg=co1, fg=co4)
     1_porcentagem.place(x=200, y=35)
 
 porcentagem()

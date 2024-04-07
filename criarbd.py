@@ -14,7 +14,7 @@ with con:
 # Criando tabela de receitas
 with con:
     cur = con.cursor()
-    cur.execute("CREATE TABLE Receita(id INTEGER PRIMARY KEY AUTOINCREMENT, categoria TEXT, adicionado_em DATE, valor DECIMAL)")
+    cur.execute("CREATE TABLE Receitas(id INTEGER PRIMARY KEY AUTOINCREMENT, categoria TEXT, adicionado_em DATE, valor DECIMAL)")
 
 # Criando tabela de gastos
 with con:

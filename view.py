@@ -19,10 +19,10 @@ def inserir_categotia(i):
 def inserir_receitas(i):
     with con:
         cur = cur.cursor()
-        query = "INSERT INTO Receitas (categoria, adicionando_em,valor) VALUES (?,?,?)"
+        query = "INSERT INTO Receitas (categoria, adicionado_em,valor) VALUES (?,?,?)"
         cur.execute(query,i)
 # Iserir Gastos
-def inserir_receitas(i):
+def inserir_gastos(i):
     with con:
         cur = cur.cursor()
         query = "INSERT INTO Gastos (categoria, retirado_em,valor) VALUES (?,?,?)"
@@ -36,7 +36,7 @@ def deletar_receitas(i):
         query = "DELETE FROM Receitas WHERE id =?"
         cur.execute(query,i)
 #deletar gastos
-def deletar_gatos(i):
+def deletar_gastos(i):
     with con:
         cur = cur.cursor()
         query = "DELETE FROM Gastos WHERE id =?"
@@ -52,7 +52,7 @@ def ver_categoria(i):
             linha = cur.fetchall()
             for i in linha:
                 lista_itens.append(i)
-            return lista_itens
+        return lista_itens
 
 print(ver_categoria())
 
@@ -66,7 +66,7 @@ def ver_receitas(i):
             linha = cur.fetchall()
             for i in linha:
                 lista_itens.append(i)
-                return lista_itens
+        return lista_itens
 
 #Ver gastos
 def ver_gastos(i):
@@ -78,4 +78,4 @@ def ver_gastos(i):
             linha = cur.fetchall()
             for i in linha:
                 lista_itens.append(i)
-                return lista_itens
+        return lista_itens
