@@ -54,8 +54,6 @@ def ver_categoria(i):
                 lista_itens.append(i)
         return lista_itens
 
-print(ver_categoria())
-
 # ver Receitas
 def ver_receitas(i):
         lista_itens = []

@@ -1,8 +1,6 @@
 # importando SQL Lite
 import sqlite3 as lite
 
-
-# %%
 # Criando Conexão
 con = lite.connect('dados.db')
 
