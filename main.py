@@ -33,7 +33,7 @@ class AppWindow:
         self.app_logo = Label(self.frameCima, image=self.app_imag_tk, text=" Orçamento pessoal", compound=LEFT, padx=5,relief=RAISED, anchor=NW, font=('Verdana 20 bold'), bg=co1, fg=co4)
         self.app_logo.place(x=0, y=0)
 
-        # percentagem------------------------------
+        # porcentagem------------------------------
 
         self.porcentagem()
 
@@ -61,11 +61,11 @@ def grafico_bar():
     lista_valores = [3000, 2000, 6236]
 
 #faça figura e atribua objetos de eixo
-    figura = plt.Figure(figsize=(4, 3.45), dpi=60)
+    figura = plt.Figure(figsize=(4, 3.45), dpi=60) # type: ignore
     ax = figura.add_subplot(111)
    # ax.autoscale(enable=True, axis='both', tight=None)
 
-    ax.bar(lista_categorias, lista_valores,  color=colors, width=0.9)
+    ax.bar(lista_categorias, lista_valores,  color=colors, width=0.9) # type: ignore
     #create a list to collect the plt.patches data
 
     c = 0
@@ -94,9 +94,63 @@ def grafico_bar():
     ax.yaxis.grid(False, color='#EEEEEE')
     ax.xaxis.grid(False)
 
-    canva = FigureCanvasTkAgg(figura, frameMeio)
+    canva = FigureCanvasTkAgg(figura, frameMeio) # type: ignore
     canva.get_tk_widget().place(x=10, y=70)
-grafico_bar()
+
+#funçao de resumo total
+def resumo():
+    valor = [500,600,420]
+    l_linha = Label(frameMeio, text="", width=215, height=1, anchor=NW, font=('Arial 1'),bg='#545454') # type: ignore
+    l_linha.place(x=309, y=52)
+    l_sumario = Label(frameMeio, text="Total Renda Mensal    ".upper(), anchor=NW, font=('Verdana 12'),bg=co1, fg='#83a9e6') # type: ignore
+    l_sumario.place(x=309, y=35)
+    l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[0]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
+    l_sumario.place(x=309, y=70)
+
+    l_linha = Label(frameMeio, text="", width=215, height=1, anchor=NW, font=('Arial 1'),bg='#545454') # type: ignore
+    l_linha.place(x=309, y=132)
+    l_sumario = Label(frameMeio, text="Total Despesas Mensais ".upper(), anchor=NW, font=('Verdana 12'),bg=co1, fg='#83a9e6') # type: ignore
+    l_sumario.place(x=309, y=115)
+    l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[0]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
+    l_sumario.place(x=309, y=150)
+
+
+    l_linha = Label(frameMeio, text="", width=215, height=1, anchor=NW, font=('Arial 1'),bg='#545454') # type: ignore
+    l_linha.place(x=309, y=52)
+    l_sumario = Label(frameMeio, text="Total Saldo do Caixa    ".upper(), anchor=NW, font=('Verdana 12'),bg=co1, fg='#83a9e6') # type: ignore
+    l_sumario.place(x=309, y=207)
+    l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[0]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
+    l_sumario.place(x=309, y=220)
+
+def grafico_pie():
+    frame_gra_pie = Frame(frameMeio, width=580, height=250, bg=co0) # type: ignore
+    frame_gra_pie.place(x=415, y=5)
+
+frame_gra_pie = Frame(FrameMeio, width=580, height=250, bg=co2) # type: ignore
+frame_gra_pie.place(x=415, y=5)
+
+#funcao grafico pie
+def grafico_pie():
+    #faça figura e atribua objetos de eixo
+    figura = plt.Figure(figsize=(5, 3), dpi=90) # type: ignore
+    ax = figura.add_subplot(111)
+
+    lista_valores = [345,225,534]
+    lista_categorias = ['Renda', 'Despesas', 'Saldo']
+
+    #only "explode" the 2nd slice (i.e. 'Hogs')
+
+    explode = []
+    for i in lista_categorias:
+        explode.append(0.05)
+
+    ax.pie(lista_valores, explode=explode, wedgeprops=dict(width=0.2), autopct='%1.1f%%', colors=colors,shadow=True, startangle=90) # type: ignore
+    ax.legend(lista_categorias, loc="center right", bbox_to_anchor=(1.55, 0.50))
+
+    canva_categoria = FigureCanvasTkAgg(figura, frame_gra_pie) # type: ignore
+    canva_categoria.get_tk_widget().grid(row=0  , column=0)
+
+
 def main():
     janela = Tk()
     app = AppWindow(janela)
