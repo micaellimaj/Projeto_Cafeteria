@@ -105,13 +105,14 @@ def resumo():
     l_sumario = Label(frameMeio, text="Total Renda Mensal    ".upper(), anchor=NW, font=('Verdana 12'),bg=co1, fg='#83a9e6') # type: ignore
     l_sumario.place(x=309, y=35)
     l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[0]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
+
     l_sumario.place(x=309, y=70)
 
     l_linha = Label(frameMeio, text="", width=215, height=1, anchor=NW, font=('Arial 1'),bg='#545454') # type: ignore
     l_linha.place(x=309, y=132)
     l_sumario = Label(frameMeio, text="Total Despesas Mensais ".upper(), anchor=NW, font=('Verdana 12'),bg=co1, fg='#83a9e6') # type: ignore
     l_sumario.place(x=309, y=115)
-    l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[0]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
+    l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[1]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
     l_sumario.place(x=309, y=150)
 
 
@@ -119,7 +120,7 @@ def resumo():
     l_linha.place(x=309, y=52)
     l_sumario = Label(frameMeio, text="Total Saldo do Caixa    ".upper(), anchor=NW, font=('Verdana 12'),bg=co1, fg='#83a9e6') # type: ignore
     l_sumario.place(x=309, y=207)
-    l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[0]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
+    l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[2]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
     l_sumario.place(x=309, y=220)
 
 def grafico_pie():
@@ -149,8 +150,8 @@ def grafico_pie():
 
     canva_categoria = FigureCanvasTkAgg(figura, frame_gra_pie) # type: ignore
     canva_categoria.get_tk_widget().grid(row=0  , column=0)
-
-
+#.place(x=400, y=70)
+# frameMeio
 def main():
     janela = Tk()
     app = AppWindow(janela)
