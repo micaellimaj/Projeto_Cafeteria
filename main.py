@@ -58,7 +58,7 @@ frame_gra_pie.place(x=415, y=5)
 # Trabalhando no frame de cima
 
 # abrindo imagem
-app_img  = Image.open('logo.png')
+app_img  = Image.open('confraria do cafe.jpg')
 app_img = app_img.resize((45, 45))
 app_img = ImageTk.PhotoImage(app_img)
 
