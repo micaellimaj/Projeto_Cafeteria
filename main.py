@@ -159,3 +159,40 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+#função para mostrar renda
+
+def mostrar_renda():
+    # Criando uma treeview com barras de rolagem duplas
+    tabela_head = ['#Id','Categoria','Data','Quantia']
+
+    lista_itens = [[0,2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4]]
+    
+    global tree
+
+    tree = ttk.Treeview(frame_renda, selectmode="extended",columns=tabela_head, show="headings")
+    # Barra de rolagem vertical
+    vsb = ttk.Scrollbar(frame_renda, orient="vertical", command=tree.yview)
+    # Barra de rolagem horizontal
+    hsb = ttk.Scrollbar(frame_renda, orient="horizontal", command=tree.xview)
+
+    tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+
+    tree.grid(column=0, row=0, sticky='nsew')
+    vsb.grid(column=1, row=0, sticky='ns')
+    hsb.grid(column=0, row=1, sticky='ew')
+
+    hd=["center","center","center", "center"]
+    h=[30,100,100,100]
+    n=0
+
+    for col in tabela_head:
+        tree.heading(col, text=col.title(), anchor=CENTER)
+        # Ajusta a largura da coluna de acordo com a string do cabeçalho
+        tree.column(col, width=h[n],anchor=hd[n])
+        
+        n+=1
+
+    for item in lista_itens:
+        tree.insert('', 'end', values=item)
+
