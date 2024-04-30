@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import Tk, ttk
 
 #impotando Pillow
+#! pip install tkcalendar
 # (instalação terminal : pip install pillow)
 from PIL import Image, ImageTk
 
@@ -13,6 +14,9 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 
+# tkcalendar
+from tkcalendar import Calendar, DateEntry
+from datetime import date
 
 
 ################# cores ###############
@@ -248,6 +252,47 @@ def mostrar_renda():
         tree.insert('', 'end', values=item)
 
 mostrar_renda()
+
+# configurações despesas
+l_info = Label(frame_operacoes, text="Insira novas despesas", height=1,anchor=NW,relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_info.place(x=10, y=10)
+
+# categoria
+l_categoria = Label(frame_operacoes, text="Categoria", height=1,anchor=NW,relief="flat", font=('Ivy 10'), bg=co1, fg=co4)
+l_categoria.place(x=10, y=40)
+
+# Pegando os categorias
+categorias_funcao = ['viagens','comida']
+categorias = []
+
+for i in categorias_funcao:
+    categorias.append(i[1])
+
+combo_categoria_despesas = ttk.Combobox(frame_operacoes, width=10,font=('Ivy 10'))
+combo_categoria_despesas['values'] = (categorias)
+combo_categoria_despesas.place(x=110, y=41)
+
+# Despesas --------------------------------
+
+l_cal_despesas = Label(frame_operacoes, text="Data", height=1,anchor=NW, font=('Ivy 10 '), bg=co1, fg=co4)
+l_cal_despesas.place(x=10, y=70)
+e_cal_despesas = DateEntry(frame_operacoes, width=12, background='darkblue', foreground='white', borderwidth=2, year=2020)
+e_cal_despesas.place(x=110, y=71)
+
+# Valor -------------------------------------------
+
+l_valor_despesas = Label(frame_operacoes, text="Quantia Total", height=1,anchor=NW, font=('Ivy 10 '), bg=co1, fg=co4)
+l_valor_despesas.place(x=10, y=100)
+e_valor_despesas = Entry(frame_operacoes, width=14, justify='left',relief="solid")
+e_valor_despesas.place(x=110, y=101)
+
+# Botao Inserir
+img_add_despesas  = Image.open('adicionar.png')
+img_add_despesas = img_add_despesas.resize((17,17))
+img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
+
+botao_inserir_despesas = Button(frame_operacoes,image=img_add_despesas, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
+botao_inserir_despesas.place(x=110, y=131)
 
 
 janela.mainloop()
