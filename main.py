@@ -18,6 +18,10 @@ from matplotlib.figure import Figure
 from tkcalendar import Calendar, DateEntry
 from datetime import date
 
+import sys
+
+# importando funcoes da view
+from view import inserir_categotia, inserir_receitas, inserir_gastos, deletar_receitas,deletar_gastos, ver_categoria, ver_gastos
 
 ################# cores ###############
 co0 = "#2e2d2b"
@@ -69,6 +73,35 @@ app_img = ImageTk.PhotoImage(app_img)
 app_logo = Label(frameCima, image=app_img, text=" Orçamento pessoal", width=900, compound=LEFT, padx=5, relief=RAISED, anchor=NW, font=('Verdana 20 bold'),bg=co1, fg=co4 )
 
 app_logo.place(x=0, y=0)
+
+# definindo tree como global
+global tree
+# inserir categoria
+def inserir_categoria_b():
+    nome = e_categoria.get()
+
+    lista_inserir = [nome]
+
+    for i in lista_inserir:
+        if i =='':
+            messagebox.showerror('Erro', 'Preencha todos os campos')
+            return
+    # passado para a função inserir gastos presente na view
+    inserir_categotia(lista_inserir)
+    messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
+    e_categoria.delete(0, 'end')
+
+    # pegando os valores de categoria
+    categorias_funcao = ver_categoria()
+    categoria = []
+    for i in categorias_funcao:
+        categoria.append(i[1])
+
+    # atualizando a lista de categorias
+    combo_categoria_despesas['values'] = (categoria)
+
+
+
 
 
 
@@ -294,5 +327,58 @@ img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
 botao_inserir_despesas = Button(frame_operacoes,image=img_add_despesas, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
 botao_inserir_despesas.place(x=110, y=131)
 
+# Botao Excluir
+l_excluir = Label(frame_operacoes, text="Excluir Ação", height=1, anchor=NW, font=('Ivy 10 bold '), bg=co1, fg=co4)
+l_excluir.place(x=10, y=190)
 
+img_delete = Image.open('lixeira.png')  # Correção aqui
+img_delete = img_delete.resize((17, 17))
+img_delete = ImageTk.PhotoImage(img_delete)
+
+botao_deletar = Button(frame_operacoes, image=img_delete, compound=LEFT, anchor=NW, text=" Deletar".upper(), width=80, overrelief=RIDGE, font=('ivy 7 bold'), bg=co1, fg=co0)
+botao_deletar.place(x=110, y=190)  # Correção aqui
+
+# configurações Receitas ----------------------------------- 
+
+l_info = Label(frame_configuracao, text="Insira novas Receitas", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_info.place(x=10, y=10)
+
+# Calendario --------------------------------
+
+l_cal_receitas = Label(frame_configuracao, text="Data", height=1,anchor=NW, font=('Ivy 10 '), bg=co1, fg=co4)
+l_cal_receitas.place(x=10, y=40)
+e_cal_receitas = DateEntry(frame_configuracao, width=12, background='darkblue', foreground='white', borderwidth=2, year=2020)
+e_cal_receitas.place(x=110, y=41)
+
+# Valor -------------------------------------------
+
+l_valor_receitas = Label(frame_configuracao, text="Quantia Total", height=1,anchor=NW, font=('Ivy 10 '), bg=co1, fg=co4)
+l_valor_receitas.place(x=10, y=70)
+e_valor_receitas = Entry(frame_configuracao, width=14, justify='left',relief="solid")
+e_valor_receitas.place(x=110, y=71)
+
+# Botao Inserir
+img_add_receitas  = Image.open('adicionar.png')
+img_add_receitas = img_add_receitas.resize((17,17))
+img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
+
+botao_inserir_receitas = Button(frame_configuracao, image=img_add_receitas, compound=LEFT, anchor=NW, text=" adicionar".upper(), width=80, overrelief=RIDGE, font=('ivy 7 bold'), bg=co1, fg=co0)
+botao_inserir_receitas.place(x=110, y=111)
+
+
+# Operação Nova Categoria ----------------------------------- 
+
+l_info = Label(frame_configuracao, text="Categoria", height=1, anchor=NW, relief="flat", font=('Ivy 10 bold'), bg=co1, fg=co4)
+l_info.place(x=10, y=160)
+
+e_categoria = Entry(frame_configuracao, width=14, justify='left',relief="solid")
+e_categoria.place(x=110, y=160)
+
+# Botao Inserir
+img_add_categoria  = Image.open('adicionar.png')
+img_add_categoria = img_add_categoria.resize((17,17))
+img_add_categoria = ImageTk.PhotoImage(img_add_categoria)
+
+botao_inserir_categoria = Button(frame_configuracao, command=inserir_categoria_b, image=img_add_categoria, compound=LEFT, anchor=NW, text=" adicionar".upper(), width=80, overrelief=RIDGE, font=('ivy 7 bold'), bg=co1, fg=co0)
+botao_inserir_categoria.place(x=110, y=190)
 janela.mainloop()
