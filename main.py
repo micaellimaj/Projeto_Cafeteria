@@ -186,7 +186,21 @@ def grafico_pie():
 
 grafico_pie()
 
-janela.mainloop()
+# ------------- criando frames para tabelas -------------------------
+frame_renda = Frame(frameBaixo, width=300, height=250,bg=co1)
+frame_renda.grid(row=0,column=0)
+
+frame_operacoes = Frame(frameBaixo, width=220, height=250,bg=co1)
+frame_operacoes.grid(row=0,column=1, padx=5)
+
+frame_configuracao = Frame(frameBaixo, width=220, height=250,bg=co1)
+frame_configuracao.grid(row=0,column=2, padx=5)
+
+# tabela renda mensal
+
+app_tabela = Label(frameMeio, text="Tabela Receitas e Despesas", anchor=NW, font=('Verdana 12'),bg=co1, fg=co4)
+app_tabela.place(x=5, y=309)
+
 
 """def main():
     janela = Tk()
@@ -197,7 +211,7 @@ if __name__ == "__main__":
     main()"""
 
 
-#função para mostrar renda
+# função para mostrar_renda
 
 def mostrar_renda():
     # Criando uma treeview com barras de rolagem duplas
@@ -233,3 +247,7 @@ def mostrar_renda():
     for item in lista_itens:
         tree.insert('', 'end', values=item)
 
+mostrar_renda()
+
+
+janela.mainloop()
