@@ -22,6 +22,7 @@ import sys
 
 # importando funcoes da view
 from view import inserir_categotia, inserir_receitas, inserir_gastos, deletar_receitas,deletar_gastos, ver_categoria, ver_gastos
+from tkinter import messagebox
 
 ################# cores ###############
 co0 = "#2e2d2b"
@@ -67,7 +68,7 @@ frame_gra_pie.place(x=415, y=5)
 
 # abrindo imagem
 app_img  = Image.open('confraria do cafe.jpg')
-app_img = app_img.resize((45, 45))
+app_img = app_img.resize((65, 65))
 app_img = ImageTk.PhotoImage(app_img)
 
 app_logo = Label(frameCima, image=app_img, text=" Orçamento pessoal", width=900, compound=LEFT, padx=5, relief=RAISED, anchor=NW, font=('Verdana 20 bold'),bg=co1, fg=co4 )
@@ -99,6 +100,33 @@ def inserir_categoria_b():
 
     # atualizando a lista de categorias
     combo_categoria_despesas['values'] = (categoria)
+
+# função inserir receitas
+def inserir_receitas_b():
+    nome = 'Receita'
+    data = e_cal_receitas.get()
+    quantia = e_valor_receitas.get()
+    lista_inserir = [nome, data, quantia]
+
+    for i in lista_inserir:
+        if i=='':
+            messagebox.showerror('Erro', 'Preencha todos os campos')
+            return
+
+    # chamando a funçao inserir Receitas presente na view
+    inserir_receitas(lista_inserir)
+
+    messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
+
+    e_cal_receitas.delete(0, 'end')
+    e_valor_receitas.delete(0, 'end')
+    
+    # atualizando dados
+    mostrar_renda()
+    percentagem()
+    grafico_bar()
+    resumo()
+    grafico_pie()
 
 
 
@@ -324,7 +352,7 @@ img_add_despesas  = Image.open('adicionar.png')
 img_add_despesas = img_add_despesas.resize((17,17))
 img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
 
-botao_inserir_despesas = Button(frame_operacoes,image=img_add_despesas, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
+botao_inserir_despesas = Button(frame_operacoes,command=inserir_receitas_b,image=img_add_despesas, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
 botao_inserir_despesas.place(x=110, y=131)
 
 # Botao Excluir
