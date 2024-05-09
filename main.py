@@ -410,3 +410,70 @@ img_add_categoria = ImageTk.PhotoImage(img_add_categoria)
 botao_inserir_categoria = Button(frame_configuracao, command=inserir_categoria_b, image=img_add_categoria, compound=LEFT, anchor=NW, text=" adicionar".upper(), width=80, overrelief=RIDGE, font=('ivy 7 bold'), bg=co1, fg=co0)
 botao_inserir_categoria.place(x=110, y=190)
 janela.mainloop()
+
+#Função controle de despesas
+import tkinter as tk
+from tkinter import messagebox
+import sqlite3
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib.pyplot as plt
+
+# Função para inserir despesas no banco de dados
+def inserir_despesa():
+    descricao = descricao_entry.get()
+    valor = float(valor_entry.get())
+
+    conn = sqlite3.connect('despesas.db')
+    c = conn.cursor()
+    c.execute("INSERT INTO despesas (descricao, valor) VALUES (?, ?)", (descricao, valor))
+    conn.commit()
+    conn.close()
+
+    messagebox.showinfo("Sucesso", "Despesa inserida com sucesso.")
+
+# Função para exibir o gráfico de despesas
+def exibir_grafico():
+    conn = sqlite3.connect('despesas.db')
+    c = conn.cursor()
+    c.execute("SELECT descricao, valor FROM despesas")
+    data = c.fetchall()
+    conn.close()
+
+    despesas = [row[0] for row in data]
+    valores = [row[1] for row in data]
+
+    plt.figure(figsize=(6, 4))
+    plt.bar(despesas, valores)
+    plt.xlabel('Despesas')
+    plt.ylabel('Valor')
+    plt.title('Gráfico de Despesas')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Exibir o gráfico na interface
+    fig = plt.gcf()
+    canvas = FigureCanvasTkAgg(fig, master=window)
+    canvas.draw()
+    canvas.get_tk_widget().pack()
+
+# Configuração da interface gráfica
+window = tk.Tk()
+window.title("Controle de Despesas Pessoais")
+
+descricao_label = tk.Label(window, text="Descrição:")
+descricao_label.pack()
+descricao_entry = tk.Entry(window)
+descricao_entry.pack()
+
+valor_label = tk.Label(window, text="Valor:")
+valor_label.pack()
+valor_entry = tk.Entry(window)
+valor_entry.pack()
+
+inserir_button = tk.Button(window, text="Inserir Despesa", command=inserir_despesa)
+inserir_button.pack()
+
+exibir_grafico_button = tk.Button(window, text="Exibir Gráfico", command=exibir_grafico)
+exibir_grafico_button.pack()
+
+window.mainloop()
