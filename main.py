@@ -21,7 +21,7 @@ from datetime import date
 import sys
 
 # importando funcoes da view
-from view import inserir_categotia, inserir_receitas, inserir_gastos, deletar_receitas,deletar_gastos, ver_categoria, ver_gastos
+from view import bar_valores, inserir_categoria, inserir_receitas, inserir_gastos, deletar_receitas,deletar_gastos, ver_categoria, ver_gastos, tabela
 from tkinter import messagebox
 
 ################# cores ###############
@@ -121,15 +121,35 @@ def inserir_receitas_b():
     e_cal_receitas.delete(0, 'end')
     e_valor_receitas.delete(0, 'end')
     
-    # atualizando dados
+
+# Função inserie Despesas
+
+def inserir_receitas_b():
+    nome = combo_categoria_despesas
+    data = e_cal_receitas.get()
+    quantia = e_valor_despesas.get()
+    lista_inserir = [nome, data, quantia]
+
+    for i in lista_inserir:
+        if i=='':
+            messagebox.showerror('Erro', 'Preencha todos os campos')
+            return
+
+    # chamando a funçao inserir despesas presente na view
+    inserir_gastos(lista_inserir)
+
+    messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
+
+    combo_categoria_despesas.delete(0,'end')
+    e_cal_despesas.delete(0, 'end')
+    e_valor_despesas.delete(0, 'end')
+
+# atualizando dados
     mostrar_renda()
     percentagem()
     grafico_bar()
     resumo()
     grafico_pie()
-
-
-
 
 
 
@@ -282,7 +302,7 @@ def mostrar_renda():
     # Criando uma treeview com barras de rolagem duplas
     tabela_head = ['#Id','Categoria','Data','Quantia']
 
-    lista_itens = [[0,2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4]]
+    lista_itens = tabela()
     
     global tree
 
@@ -323,7 +343,7 @@ l_categoria = Label(frame_operacoes, text="Categoria", height=1,anchor=NW,relief
 l_categoria.place(x=10, y=40)
 
 # Pegando os categorias
-categorias_funcao = ['viagens','comida']
+categorias_funcao = ver_categoria()
 categorias = []
 
 for i in categorias_funcao:
