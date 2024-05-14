@@ -497,3 +497,37 @@ exibir_grafico_button = tk.Button(window, text="Exibir Gráfico", command=exibir
 exibir_grafico_button.pack()
 
 window.mainloop()
+
+#Controle de despesas pessoais
+import matplotlib.pyplot as plt
+
+def registrar_despesas():
+    despesas = {}
+    while True:
+        data = input("Digite a data (DD/MM/AAAA) ou 'sair' para terminar: ")
+        if data.lower() == 'sair':
+            break
+        valor = float(input("Digite o valor da despesa: "))
+        despesas[data] = valor
+    return despesas
+
+def mostrar_grafico(despesas):
+    datas = list(despesas.keys())
+    valores = list(despesas.values())
+
+    plt.bar(datas, valores, color='blue')
+    plt.xlabel('Data')
+    plt.ylabel('Valor')
+    plt.title('Despesas Pessoais Diárias')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+def main():
+    print("Bem-vindo ao aplicativo de controle de despesas pessoais!")
+    despesas = registrar_despesas()
+    print("\nDespesas registradas com sucesso!")
+    mostrar_grafico(despesas)
+
+if __name__ == "__main__":
+    main()
