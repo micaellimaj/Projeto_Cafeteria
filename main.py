@@ -20,8 +20,8 @@ from datetime import date
 
 import sys
 
-# importando funcoes da view
-from view import bar_valores, inserir_categoria, inserir_receitas, inserir_gastos, deletar_receitas,deletar_gastos, ver_categoria, ver_gastos, tabela, deletar_gastos
+# importando funcoes da view (bar_valores, inserir_categoria,tabela)
+from view import inserir_receitas, inserir_gastos, deletar_receitas,deletar_gastos, ver_categoria, ver_gastos, deletar_gastos, inserir_categoria,bar_valores, tabela
 from tkinter import messagebox
 
 ################# cores ###############
@@ -88,7 +88,7 @@ def inserir_categoria_b():
             messagebox.showerror('Erro', 'Preencha todos os campos')
             return
     # passado para a função inserir gastos presente na view
-    inserir_categotia(lista_inserir)
+    inserir_categoria(lista_inserir)
     messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
     e_categoria.delete(0, 'end')
 
