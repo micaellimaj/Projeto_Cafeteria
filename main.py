@@ -21,7 +21,7 @@ from datetime import date
 import sys
 
 # importando funcoes da view
-from view import bar_valores, inserir_categoria, inserir_receitas, inserir_gastos, deletar_receitas,deletar_gastos, ver_categoria, ver_gastos, tabela
+from view import bar_valores, inserir_categoria, inserir_receitas, inserir_gastos, deletar_receitas,deletar_gastos, ver_categoria, ver_gastos, tabela, deletar_gastos
 from tkinter import messagebox
 
 ################# cores ###############
@@ -122,7 +122,8 @@ def inserir_receitas_b():
     e_valor_receitas.delete(0, 'end')
     
 
-# Função inserie Despesas
+
+# Função inserir Despesas
 
 def inserir_receitas_b():
     nome = combo_categoria_despesas
@@ -144,12 +145,46 @@ def inserir_receitas_b():
     e_cal_despesas.delete(0, 'end')
     e_valor_despesas.delete(0, 'end')
 
-# atualizando dados
+
     mostrar_renda()
     percentagem()
     grafico_bar()
     resumo()
     grafico_pie()
+
+# função deletar
+def deletar_dados():
+    try:
+        treev_dados = tree.focus()
+        treev_dicionario = tree.item(treev_dados)
+        treev_lista = treev_dicionario['values']
+        valor = treev_lista[0]
+        nome = treev_lista[1]       
+
+        if nome =='Receita':
+            deletar_receitas([valor])
+            messagebox.showinfo('Sucesso','Os dados foram deletados com sucesso')
+
+        # atualizando dados
+            mostrar_renda()
+            percentagem()
+            grafico_bar()
+            resumo()
+            grafico_pie()
+
+        else:
+            deletar_gastos([valor])
+            messagebox.showinfo('Sucesso','Os dados foram deletados com sucesso')
+
+        # atualizando dados
+            mostrar_renda()
+            percentagem()
+            grafico_bar()
+            resumo()
+            grafico_pie()
+
+    except IndexError:
+        messagebox.showinfo('Erro, selecione um dos dados na tabela')
 
 
 
@@ -383,7 +418,7 @@ img_delete = Image.open('lixeira.png')  # Correção aqui
 img_delete = img_delete.resize((17, 17))
 img_delete = ImageTk.PhotoImage(img_delete)
 
-botao_deletar = Button(frame_operacoes, image=img_delete, compound=LEFT, anchor=NW, text=" Deletar".upper(), width=80, overrelief=RIDGE, font=('ivy 7 bold'), bg=co1, fg=co0)
+botao_deletar = Button(frame_operacoes, command= deletar_dados,image=img_delete, compound=LEFT, anchor=NW, text=" Deletar".upper(), width=80, overrelief=RIDGE, font=('ivy 7 bold'), bg=co1, fg=co0)
 botao_deletar.place(x=110, y=190)  # Correção aqui
 
 # configurações Receitas ----------------------------------- 
