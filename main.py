@@ -233,6 +233,10 @@ def grafico_bar():
                 str("{:,.0f}".format(lista_valores[c])), fontsize=17, fontstyle='italic',  verticalalignment='bottom',color='dimgrey')
         c += 1
 
+    
+# Primeiro, defina os ticks no eixo x
+    ax.set_xticks(range(len(lista_categorias)))
+
     ax.set_xticklabels(lista_categorias,fontsize=16)
     ax.patch.set_facecolor('#ffffff')
     ax.spines['bottom'].set_color('#CCCCCC')
@@ -246,7 +250,7 @@ def grafico_bar():
     ax.spines['left'].set_visible(False)
     ax.tick_params(bottom=False, left=False)
     ax.set_axisbelow(True)
-    ax.yaxis.grid(False, color='#EEEEEE')
+    ax.yaxis.grid(False)
     ax.xaxis.grid(False)
 
     canva = FigureCanvasTkAgg(figura, frameMeio) # type: ignore
