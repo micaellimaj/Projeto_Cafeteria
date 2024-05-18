@@ -186,10 +186,31 @@ def deletar_dados():
     except IndexError:
         messagebox.showinfo('Erro, selecione um dos dados na tabela')
 
+#funcao inserir receitas
+def inserir_receitas_b():
+    nome = 'Receita'
+    data = e_cal_receitas.get()
+    quantia = e_valor_receitas.get()
+    lista_inserir = [nome, data, quantia]
 
+    for i in lista_inserir:
+        if i=='':
+            messagebox.showerror('Erro', 'Preencha todos os campos')
+            return
+    #chamando a funcao inserir Receitas presentes na view
+    inserir_receitas(lista_inserir)
+    messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
+    e_cal_receitas.delete(0, 'end')
+    e_valor_receitas.delete(0, 'end')
+    
+    # atualizando dados
+    mostrar_renda()
+    percentagem()
+    grafico_bar()
+    resumo()
+    grafico_pie()
 
 # percentagem------------------------------
-
 def percentagem():
     l_nome = Label(frameMeio, text="Porcentagem da receita gasta", height=1,anchor=NW, font=('Verdana 12 '), bg=co1, fg=co4)
     l_nome.place(x=7, y=5)
@@ -258,31 +279,31 @@ def grafico_bar():
 
 grafico_bar()
 
-#funçao de resumo total
+# funcao de resumo total
 def resumo():
-    valor = [500,600,420]
-    
-    l_linha = Label(frameMeio, text="", width=215, height=1, anchor=NW, font=('Arial 1'),bg='#545454') # type: ignore
-    l_linha.place(x=309, y=132)
-    l_sumario = Label(frameMeio, text="Total Renda Mensal    ".upper(), anchor=NW, font=('Verdana 12'),bg=co1, fg='#83a9e6') # type: ignore
-    l_sumario.place(x=309, y=35)
-    l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[0]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
-    l_sumario.place(x=309, y=70)
 
-    l_linha = Label(frameMeio, text="", width=215, height=1, anchor=NW, font=('Arial 1'),bg='#545454') # type: ignore
-    l_linha.place(x=309, y=132)
-    l_sumario = Label(frameMeio, text="Total Despesas Mensais ".upper(), anchor=NW, font=('Verdana 12'),bg=co1, fg='#83a9e6') # type: ignore
-    l_sumario.place(x=309, y=115)
-    l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[1]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
-    l_sumario.place(x=309, y=150)
+    valor = [345,225,534]
 
-
-    l_linha = Label(frameMeio, text="", width=215, height=1, anchor=NW, font=('Arial 1'),bg='#545454') # type: ignore
+    l_linha = Label(frameMeio, text="", width=215, height=1,anchor=NW, font=('arial 1 '), bg='#545454',)
     l_linha.place(x=309, y=52)
-    l_sumario = Label(frameMeio, text="Total Saldo do Caixa    ".upper(), anchor=NW, font=('Verdana 12'),bg=co1, fg='#83a9e6') # type: ignore
-    l_sumario.place(x=309, y=190)
-    l_sumario = Label(frameMeio, text="{:,.2f}".format(valor[2]), anchor=NW, font=('arial 17'),bg=co1, fg='#545454') # type: ignore
-    l_sumario.place(x=309, y=220)
+    l_sumario = Label(frameMeio, text="Total Renda Mensal      ".upper(), height=1,anchor=NW, font=('Verdana 12'), bg=co1, fg='#83a9e6')
+    l_sumario.place(x=306, y=35)
+    l_sumario = Label(frameMeio, text='R$ {:,.2f}'.format(valor[0]), height=1,anchor=NW, font=('arial 17 '), bg=co1, fg='#545454')
+    l_sumario.place(x=306, y=70)
+
+    l_linha = Label(frameMeio, text="", width=215, height=1,anchor=NW, font=('arial 1 '), bg='#545454',)
+    l_linha.place(x=309, y=132)
+    l_sumario = Label(frameMeio, text="Total Despesas Mensais".upper(), height=1,anchor=NW, font=('Verdana 12'), bg=co1, fg='#83a9e6')
+    l_sumario.place(x=306, y=115)
+    l_sumario = Label(frameMeio, text='R$ {:,.2f}'.format(valor[1]), height=1,anchor=NW, font=('arial 17 '), bg=co1, fg='#545454')
+    l_sumario.place(x=306, y=150)
+
+    l_linha = Label(frameMeio, text="", width=215, height=1,anchor=NW, font=('arial 1 '), bg='#545454',)
+    l_linha.place(x=309, y=207)
+    l_sumario = Label(frameMeio, text="Total Saldo da Caixa    ".upper(), height=1,anchor=NW, font=('Verdana 12'), bg=co1, fg='#83a9e6')
+    l_sumario.place(x=306, y=190)
+    l_sumario = Label(frameMeio, text='R$ {:,.2f}'.format(valor[2]), height=1,anchor=NW, font=('arial 17 '), bg=co1, fg='#545454')
+    l_sumario.place(x=306, y=220)
 
 resumo()
 
@@ -342,7 +363,7 @@ def mostrar_renda():
     tabela_head = ['#Id','Categoria','Data','Quantia']
 
     lista_itens = tabela()
-    
+
     global tree
 
     tree = ttk.Treeview(frame_renda, selectmode="extended",columns=tabela_head, show="headings")
@@ -365,7 +386,7 @@ def mostrar_renda():
         tree.heading(col, text=col.title(), anchor=CENTER)
         # Ajusta a largura da coluna de acordo com a string do cabeçalho
         tree.column(col, width=h[n],anchor=hd[n])
-        
+
         n+=1
 
     for item in lista_itens:
@@ -411,15 +432,15 @@ img_add_despesas  = Image.open('adicionar.png')
 img_add_despesas = img_add_despesas.resize((17,17))
 img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
 
-botao_inserir_despesas = Button(frame_operacoes,command=inserir_receitas_b,image=img_add_despesas, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
+botao_inserir_despesas = Button(frame_operacoes,image=img_add_despesas, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
 botao_inserir_despesas.place(x=110, y=131)
 
-# Botao Excluir
-l_excluir = Label(frame_operacoes, text="Excluir Ação", height=1, anchor=NW, font=('Ivy 10 bold '), bg=co1, fg=co4)
-l_excluir.place(x=10, y=190)
+# Botao Excluir -----------------------
+l_n_categoria = Label(frame_operacoes, text="Excluir ação", height=1,anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co4)
+l_n_categoria.place(x=10, y=190)
 
 img_delete = Image.open('lixeira.png')  # Correção aqui
-img_delete = img_delete.resize((17, 17))
+img_delete = img_delete.resize((20, 20))
 img_delete = ImageTk.PhotoImage(img_delete)
 
 botao_deletar = Button(frame_operacoes, command= deletar_dados,image=img_delete, compound=LEFT, anchor=NW, text=" Deletar".upper(), width=80, overrelief=RIDGE, font=('ivy 7 bold'), bg=co1, fg=co0)
@@ -448,8 +469,7 @@ e_valor_receitas.place(x=110, y=71)
 img_add_receitas  = Image.open('adicionar.png')
 img_add_receitas = img_add_receitas.resize((17,17))
 img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
-
-botao_inserir_receitas = Button(frame_configuracao, image=img_add_receitas, compound=LEFT, anchor=NW, text=" adicionar".upper(), width=80, overrelief=RIDGE, font=('ivy 7 bold'), bg=co1, fg=co0)
+botao_inserir_receitas = Button(frame_configuracao, image=img_add_receitas, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
 botao_inserir_receitas.place(x=110, y=111)
 
 
@@ -465,10 +485,8 @@ e_categoria.place(x=110, y=160)
 img_add_categoria  = Image.open('adicionar.png')
 img_add_categoria = img_add_categoria.resize((17,17))
 img_add_categoria = ImageTk.PhotoImage(img_add_categoria)
-
-botao_inserir_categoria = Button(frame_configuracao, command=inserir_categoria_b, image=img_add_categoria, compound=LEFT, anchor=NW, text=" adicionar".upper(), width=80, overrelief=RIDGE, font=('ivy 7 bold'), bg=co1, fg=co0)
+botao_inserir_categoria = Button(frame_configuracao,image=img_add_categoria, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
 botao_inserir_categoria.place(x=110, y=190)
-janela.mainloop()
 
 #Função controle de despesas
 import tkinter as tk
