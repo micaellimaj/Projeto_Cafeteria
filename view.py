@@ -47,7 +47,7 @@ def deletar_gastos(i):
 # funçoes para ver dados ---------------------------------------
 
 # ver categoria
-def ver_categoria(): #i
+def ver_categoria(): 
         lista_itens = []
         with con:
             cur = con.cursor()
@@ -56,7 +56,7 @@ def ver_categoria(): #i
             for row in rows:
                 lista_itens.append(row)
         return lista_itens
-            
+        
             #linha = cur.fetchall()
             #for i in linha:
                 #lista_itens.append(i)
@@ -89,7 +89,7 @@ def ver_gastos(): #i
             for row in rows:
                 lista_itens.append(row)
         return lista_itens
-            
+
             #linha = cur.fetchall()
             #for i in linha:
                 #lista_itens.append(i)
@@ -121,18 +121,38 @@ def bar_valores():
     receita_total = sum(receitas_lista)
 
     # Despesas Total ------------------------
-    receitas = ver_gastos()
-    despesas_lista = []
+    gastos = ver_gastos()
+    gastos_lista = []
 
     for i in receitas:
-        despesas_lista.append(i[3])
+        gastos_lista.append(i[3])
 
-    despesas_total = sum(despesas_lista)
+    gastos_total = sum(gastos_lista)
 
     # Despesas Total ------------------------
-    saldo_total = receita_total - despesas_total
+    saldo_total = receita_total - gastos_total
 
-    return[receita_total,despesas_total,saldo_total]
+    return[receita_total,gastos_total,saldo_total]
+
+def pie_valores():
+    gastos = ver_gastos()
+    tabela_lista = []
+
+    for i in gastos:
+        tabela_lista.append(i)
+
+    dataframe = pd.DataFrame(tabela_lista,columns = ['id', 'Categoria', 'Data', 'valor'])
+
+    # Get the sum of the durations per month
+    dataframe = dataframe.groupby('Categoria')['valor'].sum()
+
+    lista_quantias = dataframe.values.tolist()
+    lista_categorias = []
+
+    for i in dataframe.index:
+        lista_categorias.append(i)
+
+    return([lista_categorias,lista_quantias])
 
 def percentagem_valor():
 
@@ -146,36 +166,15 @@ def percentagem_valor():
     receita_total = sum(receitas_lista)
 
     # Despesas Total ------------------------
-    receitas = ver_gastos()
-    despesas_lista = []
+    gastos = ver_gastos()
+    gastos_lista = []
 
     for i in receitas:
-        despesas_lista.append(i[3])
+        gastos_lista.append(i[3])
 
-    despesas_total = sum(despesas_lista)
+    gastos_total = sum(gastos_lista)
 
     # Despesas Total ------------------------
-    total =  ((receita_total - despesas_total) / receita_total) * 100
+    total =  ((receita_total - gastos_total) / receita_total) * 100
 
     return[total]
-
-
-def pie_valores():
-    gastos = ver_gastos()
-    tabela_lista = []
-
-    for i in gastos:
-        tabela_lista.append(i)
-
-    dataframe = pd.DataFrame(tabela_lista,columns = ['id', 'Categoria', 'Data', 'valor'])
-
-    # Get the sum of the durations per month
-    dataframe = dataframe.groupby('Categoria')['valor'].sum()
-   
-    lista_quantias = dataframe.values.tolist()
-    lista_categorias = []
-
-    for i in dataframe.index:
-        lista_categorias.append(i)
-
-    return([lista_categorias,lista_quantias])
