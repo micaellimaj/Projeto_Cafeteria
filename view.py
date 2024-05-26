@@ -19,7 +19,7 @@ def inserir_categoria(i):
         cur.execute(query,i)
 
         #inserir receitas
-def inserir_receitas(i):
+def inserir_receita(i): #receitas
     with con:
         cur = con.cursor()
         query = "INSERT INTO Receitas (categoria, adicionado_em,valor) VALUES (?,?,?)"
@@ -41,13 +41,13 @@ def deletar_receitas(i):
 #deletar gastos
 def deletar_gastos(i):
     with con:
-        cur = con.cursor()
-        query = "DELETE FROM Gastos WHERE id =?"
+        cur = con.cursor() #Gastos?
+        query = "DELETE FROM Receitas WHERE id =?"
         cur.execute(query,i)
 # funçoes para ver dados ---------------------------------------
 
 # ver categoria
-def ver_categoria(): 
+def ver_categorias(): 
         lista_itens = []
         with con:
             cur = con.cursor()
@@ -63,7 +63,7 @@ def ver_categoria():
         #return lista_itens
 
 # ver Receitas
-def ver_receitas(): #i
+def ver_Receitas(): #i
         lista_itens = []
         with con:
             cur = con.cursor()
@@ -98,7 +98,7 @@ def ver_gastos(): #i
 
 def tabela():
     gastos = ver_gastos()
-    receitas = ver_receitas()
+    receitas = ver_Receitas()
 
     tabela_lista = []
 
@@ -112,7 +112,7 @@ def tabela():
 
 def bar_valores():
     # Receita Total ------------------------
-    receitas = ver_receitas()
+    receitas = ver_Receitas()
     receitas_lista = []
 
     for i in receitas:
@@ -121,18 +121,18 @@ def bar_valores():
     receita_total = sum(receitas_lista)
 
     # Despesas Total ------------------------
-    gastos = ver_gastos()
-    gastos_lista = []
+    receitas = ver_gastos()
+    despesas_lista = []
 
     for i in receitas:
-        gastos_lista.append(i[3])
+        despesas_lista.append(i[3])
 
-    gastos_total = sum(gastos_lista)
+    despesas_total = sum(despesas_lista)
 
     # Despesas Total ------------------------
-    saldo_total = receita_total - gastos_total
+    saldo_total = receita_total - despesas_total
 
-    return[receita_total,gastos_total,saldo_total]
+    return[receita_total,despesas_total,saldo_total]
 
 def pie_valores():
     gastos = ver_gastos()
@@ -157,7 +157,7 @@ def pie_valores():
 def percentagem_valor():
 
     # Receita Total ------------------------
-    receitas = ver_receitas()
+    receitas = ver_Receitas()
     receitas_lista = []
 
     for i in receitas:
@@ -166,15 +166,15 @@ def percentagem_valor():
     receita_total = sum(receitas_lista)
 
     # Despesas Total ------------------------
-    gastos = ver_gastos()
-    gastos_lista = []
+    receitas = ver_gastos()
+    despesas_lista = []
 
     for i in receitas:
-        gastos_lista.append(i[3])
+        despesas_lista.append(i[3])
 
-    gastos_total = sum(gastos_lista)
+    despesas_total = sum(despesas_lista)
 
     # Despesas Total ------------------------
-    total =  ((receita_total - gastos_total) / receita_total) * 100
+    total =  ((receita_total - despesas_total) / receita_total) * 100
 
     return[total]

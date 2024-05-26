@@ -48,7 +48,7 @@ style= ttk.Style(janela)
 style.theme_use("clam")
 style.configure("Treeview", highlightthickness=0, bd=0, font=('Calibri', 9))
 
-
+janela.mainloop ()
 
 # criando frames para divisao de tela
 frameCima = Frame(janela, width=1043, height=50, bg=co1, relief="flat")
@@ -70,6 +70,12 @@ frame_gra_pie.place(x=415, y=5)
 app_img  = Image.open('confraria do cafe.jpg')
 app_img = app_img.resize((65, 65))
 app_img = ImageTk.PhotoImage(app_img)
+
+# --------------------------------------------  FUNÇÕES ------------------------------
+
+
+
+# --------------------------------------------  FUNÇÕES ------------------------------
 
 app_logo = Label(frameCima, image=app_img, text=" Financeiro Cafeteria", width=900, compound=LEFT, padx=5, relief=RAISED, anchor=NW, font=('Verdana 20 bold'),bg=co1, fg=co4 )
 
@@ -347,14 +353,6 @@ frame_configuracao.grid(row=0,column=2, padx=5)
 app_tabela = Label(frameMeio, text="Tabela Receitas e Despesas", anchor=NW, font=('Verdana 12'),bg=co1, fg=co4)
 app_tabela.place(x=5, y=309)
 
-
-"""def main():
-    janela = Tk()
-    app = AppWindow(janela)
-    janela.mainloop()
-
-if __name__ == "__main__":
-    main()"""
 
 
 # função para mostrar_renda
