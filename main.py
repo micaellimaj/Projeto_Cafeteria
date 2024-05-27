@@ -21,7 +21,7 @@ from datetime import date
 import sys
 
 # importando funcoes da view (bar_valores, inserir_categoria,tabela)
-from view import inserir_receitas, inserir_gastos, deletar_receitas, ver_categoria, percentagem_valor, ver_gastos, deletar_gastos, inserir_categoria,bar_valores, tabela, pie_valores, ver_gastos, bar_valores,percentagem_valor
+from view import inserir_receita, inserir_gastos, deletar_receitas, ver_categorias, percentagem_valor, ver_gastos, deletar_gastos, inserir_categoria,bar_valores, tabela, pie_valores, ver_gastos, bar_valores,percentagem_valor
 from tkinter import messagebox
 
 ################# cores ###############
@@ -99,7 +99,7 @@ def inserir_categoria_b():
     e_categoria.delete(0, 'end')
 
     # pegando os valores de categoria
-    categorias_funcao = ver_categoria()
+    categorias_funcao = ver_categorias()
     categoria = []
     for i in categorias_funcao:
         categoria.append(i[1])
@@ -120,7 +120,7 @@ def inserir_receitas_b():
             return
 
     # chamando a funçao inserir Receitas presente na view
-    inserir_receitas(lista_inserir)
+    inserir_receita(lista_inserir)
 
     messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
 
