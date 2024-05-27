@@ -48,7 +48,7 @@ style= ttk.Style(janela)
 style.theme_use("clam")
 style.configure("Treeview", highlightthickness=0, bd=0, font=('Calibri', 9))
 
-janela.mainloop ()
+
 
 # criando frames para divisao de tela
 frameCima = Frame(janela, width=1043, height=50, bg=co1, relief="flat")
@@ -586,3 +586,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+janela.mainloop ()
