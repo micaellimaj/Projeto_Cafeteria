@@ -2,6 +2,7 @@ from tkinter import*
 from tkinter import Tk, StringVar, ttk
 from tkinter import messagebox
 from PIL import Image, ImageTk
+from view import inserir_produto
 
 ################# cores ###############
 co0 = "#2e2d2b"  # Preta
@@ -30,6 +31,7 @@ style.configure("Treeview", highlightthickness=0, bd=0, font=('Calibri', 9)) # M
 
 
 ################# Frames ####################
+
 frameCima = Frame(janela, width=1043, height=50, bg=co1,  relief="flat",)
 frameCima.grid(row=0, column=0)
 
@@ -42,16 +44,6 @@ frameBaixo.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW)
 frame_gra_2 = Frame(frameMeio, width=580, height=250,bg=co2)
 frame_gra_2.place(x=415, y=5)
 
-
-# ------------- criando frames para tabelas -------------------------
-frame_renda = Frame(frameBaixo, width=300, height=250,bg=co1)
-frame_renda.grid(row=0,column=0)
-
-frame_operacoes = Frame(frameBaixo, width=220, height=250,bg=co1)
-frame_operacoes.grid(row=0,column=1, padx=5)
-
-frame_configuracao = Frame(frameBaixo, width=220, height=250,bg=co1)
-frame_configuracao.grid(row=0,column=2, padx=5)
 
 
 # abrindo imagem
@@ -66,65 +58,53 @@ app_logo.place(x=0, y=0)
 
 
 # Labels para os campos
-l_descricao = Label(frame_operacoes, text="Descrição:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_descricao = Label(frameMeio, text="Descrição:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
 l_descricao.place(x=10, y=10)
 
-l_categoria = Label(frame_operacoes, text="Categoria:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_categoria = Label(frameMeio, text="Categoria:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
 l_categoria.place(x=10, y=40)
 
-l_ncm = Label(frame_operacoes, text="NCM:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_ncm = Label(frameMeio, text="NCM:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
 l_ncm.place(x=10, y=70)
 
-l_und = Label(frame_operacoes, text="Unidade de Medida:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_und = Label(frameMeio, text="Unidade de Medida:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
 l_und.place(x=10, y=100)
 
-l_estoque = Label(frame_operacoes, text="Estoque:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_estoque = Label(frameMeio, text="Estoque:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
 l_estoque.place(x=10, y=130)
 
-l_custo = Label(frame_operacoes, text="Custo:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_custo = Label(frameMeio, text="Custo:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
 l_custo.place(x=10, y=160)
 
-l_data = Label(frame_operacoes, text="Data:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_data = Label(frameMeio, text="Data:", height=1, anchor=NW, relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
 l_data.place(x=10, y=190)
 
 # Caixas de entrada para os campos
-descricao_entry = Entry(frame_operacoes, width=30, font=('Verdana 10'), bg=co1, fg=co4)
+descricao_entry = Entry(frameMeio, width=30, font=('Verdana 10'), bg=co1, fg=co4)
 descricao_entry.place(x=150, y=10)
 
-categoria_entry = Entry(frame_operacoes, width=30, font=('Verdana 10'), bg=co1, fg=co4)
+categoria_entry = Entry(frameMeio, width=30, font=('Verdana 10'), bg=co1, fg=co4)
 categoria_entry.place(x=150, y=40)
 
-ncm_entry = Entry(frame_operacoes, width=30, font=('Verdana 10'), bg=co1, fg=co4)
+ncm_entry = Entry(frameMeio, width=30, font=('Verdana 10'), bg=co1, fg=co4)
 ncm_entry.place(x=150, y=70)
 
-und_entry = Entry(frame_operacoes, width=30, font=('Verdana 10'), bg=co1, fg=co4)
+und_entry = Entry(frameMeio, width=30, font=('Verdana 10'), bg=co1, fg=co4)
 und_entry.place(x=150, y=100)
 
-estoque_entry = Entry(frame_operacoes, width=30, font=('Verdana 10'), bg=co1, fg=co4)
+estoque_entry = Entry(frameMeio, width=30, font=('Verdana 10'), bg=co1, fg=co4)
 estoque_entry.place(x=150, y=130)
 
-custo_entry = Entry(frame_operacoes, width=30, font=('Verdana 10'), bg=co1, fg=co4)
+custo_entry = Entry(frameMeio, width=30, font=('Verdana 10'), bg=co1, fg=co4)
 custo_entry.place(x=150, y=160)
 
-data_entry = Entry(frame_operacoes, width=30, font=('Verdana 10'), bg=co1, fg=co4)
+data_entry = Entry(frameMeio, width=30, font=('Verdana 10'), bg=co1, fg=co4)
 data_entry.place(x=150, y=190)
 
 # Função para inserir produto
-def inserir_produto():
-    descricao = descricao_entry.get()
-    categoria = categoria_entry.get()
-    ncm = ncm_entry.get()
-    und = und_entry.get()
-    estoque = estoque_entry.get()
-    custo = custo_entry.get()
-    data = data_entry.get()
-    
-    # Chamar função de inserir produto com os dados inseridos
-    produto = (descricao, categoria, ncm, und, estoque, custo, data)
-    inserir_produto(produto)
 
 # Botão para adicionar produto
-botao_inserir_despesas = Button(frame_operacoes, text="Adicionar", command=inserir_produto, width=80, overrelief=RIDGE, font=('Verdana 7 bold'), bg=co1, fg=co0)
+botao_inserir_despesas = Button(frameMeio, text="Adicionar", command=inserir_produto, width=80, overrelief=RIDGE, font=('Verdana 7 bold'), bg=co1, fg=co0)
 botao_inserir_despesas.place(x=110, y=220)
 
 janela.mainloop ()
