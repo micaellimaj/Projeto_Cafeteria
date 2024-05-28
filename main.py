@@ -49,8 +49,8 @@ frameCima = Frame(root, width=1043, height=50, bg=co1,  relief="flat",)
 frameCima.grid(row=0, column=0)
 
 # Frame para inserção de produtos (frameInserirProdutos)
-frameInserirProdutos = Frame(root, width=600, height=200, bg=co2, relief="flat")
-frameInserirProdutos.grid(row=1, column=0, padx=200, pady=20)
+frameInserirProdutos = Frame(root, width=600, height=200, bg=co2, relief="flat",background=co9)
+frameInserirProdutos.grid(row=1, column=0, padx=200, pady=20, sticky=W)
 
 """
 frameMeio = Frame(janela,width=1043, height=361,bg=co1, pady=20, relief="raised")
@@ -144,36 +144,49 @@ def inserir_click():
         inserir_produto(produto)
     else:
         messagebox.showerror("Erro", "Por favor, preencha todos os campos!")
+
+# Função para validar o formato da data
+def validar_data_formato(input_data):
+    try:
+        dia, mes, ano = map(int, input_data.split('/'))
+        if len(str(ano)) != 4 or not (1 <= mes <= 12) or not (1 <= dia <= 31):
+            return False
+        return True
+    except ValueError:
+        return False
+
+
+
 # Criando os widgets
 tk.Label(frameInserirProdutos, text="Descrição:").grid(row=0, column=0)
-entry_descricao = tk.Entry(frameInserirProdutos)
+entry_descricao = tk.Entry(frameInserirProdutos, width=50)
 entry_descricao.grid(row=0, column=1)
 
 tk.Label(frameInserirProdutos, text="Categoria:").grid(row=1, column=0)
-entry_categoria = tk.Entry(frameInserirProdutos)
+entry_categoria = tk.Entry(frameInserirProdutos, width=50)
 entry_categoria.grid(row=1, column=1)
 
 tk.Label(frameInserirProdutos, text="NCM:").grid(row=2, column=0)
-entry_ncm = tk.Entry(frameInserirProdutos)
+entry_ncm = tk.Entry(frameInserirProdutos, width=50)
 entry_ncm.grid(row=2, column=1)
 
 tk.Label(frameInserirProdutos, text="Unidade:").grid(row=3, column=0)
-entry_und = tk.Entry(frameInserirProdutos)
+entry_und = tk.Entry(frameInserirProdutos, width=50)
 entry_und.grid(row=3, column=1)
 
 tk.Label(frameInserirProdutos, text="Estoque:").grid(row=4, column=0)
-entry_estoque = tk.Entry(frameInserirProdutos)
+entry_estoque = tk.Entry(frameInserirProdutos, width=50)
 entry_estoque.grid(row=4, column=1)
 
 tk.Label(frameInserirProdutos, text="Custo:").grid(row=5, column=0)
-entry_custo = tk.Entry(frameInserirProdutos)
+entry_custo = tk.Entry(frameInserirProdutos, width=50)
 entry_custo.grid(row=5, column=1)
 
-tk.Label(frameInserirProdutos, text="Data:").grid(row=6, column=0)
-entry_data = tk.Entry(frameInserirProdutos)
+tk.Label(frameInserirProdutos, text="Data: ").grid(row=6, column=0)
+entry_data = tk.Entry(frameInserirProdutos, width=50)
 entry_data.grid(row=6, column=1)
 
-btn_inserir = tk.Button(frameInserirProdutos, text="Inserir", command=inserir_click)
+btn_inserir = tk.Button(frameInserirProdutos, width=50, text="Inserir", command=inserir_click)
 btn_inserir.grid(row=7, column=0, columnspan=2, pady=10)
 
 
