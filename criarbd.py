@@ -1,12 +1,26 @@
-# importando SQL Lite
-import sqlite3 as lite
+import mysql.connector
 
-# Criando Conexão
-
-# Criando Conexão
-con = lite.connect('dados.db')
+# Conectando ao banco de dados MySQL
+con = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="kate1929@",
+    database="meubanco"
+)
 
 # Criando tabela de produtos
 with con:
     cur = con.cursor()
-    cur.execute("CREATE TABLE Produtos(codigo INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT, categoria TEXT, NCM INTEGER, Und TEXT, estoque INTEGER, custo INTEGER, data DATE)")
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS Produtos(
+            codigo INT AUTO_INCREMENT PRIMARY KEY,
+            descricao TEXT,
+            categoria TEXT,
+            NCM INT,
+            Und TEXT,
+            estoque INT,
+            custo INT,
+            data DATE
+        )
+    """)
+# data DATE
