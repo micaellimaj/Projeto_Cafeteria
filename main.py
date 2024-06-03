@@ -73,13 +73,25 @@ def inserir_click():
     limpar_formulario()
     
     # Estabelecendo conexão com o banco de dados
+
+    # Micael:
+
     conexao = mysql.connector.connect(
         host="localhost",
         user="root",
         password="kate1929@",
         database="bdestoque"
     )
+
+    # Wendel:
     
+    ''''conexao = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="tuasenha",
+        database="bdestoque"
+    )
+'''
     cursor = conexao.cursor()
 
     data_formatada = datetime.strptime(data, "%d/%m/%Y")
