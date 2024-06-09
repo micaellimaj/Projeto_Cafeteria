@@ -1,12 +1,16 @@
 from tkinter import*
 from tkinter import Tk, StringVar, ttk
 import tkinter as tk
-from tkinter import messagebox
 from PIL import Image, ImageTk
 import sqlite3
 #from view import inserir_produto
 from datetime import datetime
 import mysql.connector
+from tkinter import messagebox
+from tkinter import simpledialog
+from tkcalendar import DateEntry
+from datetime import date
+
 
 ################# cores ###############
 co0 = "#2e2d2b"  # Preta
@@ -25,7 +29,7 @@ colors = ['#5588bb', '#66bbbb','#99bb55', '#ee9944', '#444466', '#bb5555']
 
 root = tk.Tk()
 root.title("Formulário de Inserção de Produtos da Confraria do Café")
-root.geometry('800x400')
+root.geometry('900x450')
 root.configure(background=co9)
 root.resizable(width=FALSE, height=FALSE)
 
@@ -36,13 +40,23 @@ style.configure("Treeview", highlightthickness=0, bd=0, font=('Calibri', 9))
 # ----------------------------- Frames ---------------------------------------#
 
 
-frameCima = Frame(root, width=1043, height=50, bg=co1,  relief="flat",)
-frameCima.grid(row=0, column=0)
+# Frame para a parte superior
+frameCima = tk.Frame(root, width=1043, height=50, bg=co1, relief="flat")
+frameCima.grid(row=0, column=0, columnspan=2)  # Mantém o frameCima na parte superior e atravessa as colunas
 
-# Frame para inserção de produtos (frameInserirProdutos)
-frameInserirProdutos = Frame(root, width=600, height=200, bg=co2, relief="flat",background=co9)
-frameInserirProdutos.grid(row=1, column=0, padx=200, pady=20, sticky=W)
+# Frame para inserção de produtos (frameInserirProdutos), do lado direito
+frameInserirProdutos = tk.Frame(root, width=600, height=200, bg=co2, relief="flat", background=co9)
+frameInserirProdutos.grid(row=1, column=1, padx=20, pady=20, sticky="ew")  # Posiciona o frameInserirProdutos do lado direito
 
+# Frame para o lado esquerdo
+frameEsquerda = tk.Frame(root, width=400, height=200, bg=co1, relief="flat")
+frameEsquerda.grid(row=1, column=0, padx=20, pady=20, sticky="ew")  # Posiciona o frameEsquerda do lado esquerdo
+
+# Configurando o gerenciamento de geometria para a janela
+root.columnconfigure(0, weight=1)
+root.columnconfigure(1, weight=1)
+root.rowconfigure(0, weight=0)
+root.rowconfigure(1, weight=1)
 
 # ---------------------------- imagem(LOGO)  -------------------------------- #
 app_img  = Image.open('confraria_do_cafe.jpg')
@@ -52,6 +66,18 @@ app_img = ImageTk.PhotoImage(app_img)
 app_logo = Label(frameCima, image=app_img, text=" GESTÃO DE ESTOQUE", width=900, compound=LEFT, padx=5, relief=RAISED, anchor=NW, font=('Verdana 20 bold'),bg=co1, fg=co4 )
 
 app_logo.place(x=0, y=0)
+
+# ---------------------------- imagem(cadastro)  -------------------------------- #
+
+app_img2 = Image.open('cafeterias.jpg')
+app_img2 = app_img2.resize((450, 250)) 
+app_img2 = ImageTk.PhotoImage(app_img2)
+
+app_logo2 = tk.Label(frameEsquerda, image=app_img2, bg=co1, fg=co4)
+app_logo2.image = app_img2  
+
+
+app_logo2.place(relx=0, rely=0, relwidth=1, relheight=1, anchor='nw')
 
 
 # ------------------ CONEXÃO COM BANCO DE DADOS -------------------------- #
@@ -73,6 +99,9 @@ def inserir_click():
     limpar_formulario()
     
     # Estabelecendo conexão com o banco de dados
+
+
+    
 
     # Micael:
 
@@ -112,6 +141,49 @@ def inserir_click():
     cursor.close()
     conexao.close()
 
+    messagebox.showinfo("Sucesso", "Produto inserido com sucesso!")
+
+# Função para remover um produto
+
+def remover_produto():
+    try:
+        # Conectando ao banco de dados
+        conexao = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="kate1929@",
+            database="bdestoque"
+        )
+        cursor = conexao.cursor()
+        
+        # Selecionando o ID do último produto inserido
+        cursor.execute("SELECT MAX(idprodutos) AS ultimo_id FROM produtos")
+        resultado = cursor.fetchone()
+        ultimo_id = resultado[0] if resultado[0] is not None else 1
+        
+        # Deletando o produto com o ID encontrado
+        comando = 'DELETE FROM produtos WHERE idprodutos = %s'
+        cursor.execute(comando, (ultimo_id,))
+        conexao.commit()
+        
+        cursor.close()
+        conexao.close()
+        
+        # Informando o usuário que o produto foi removido com sucesso
+        messagebox.showinfo(title="Sucesso", message=f"Último produto removido com sucesso.")
+    except Exception as e:
+        # Informando o usuário em caso de erro
+        messagebox.showerror(title="Erro", message=str(e))
+    finally:
+        # Fechando a conexão com o banco de dados
+        if 'cursor' in locals() or 'cursor' in globals():
+            cursor.close()
+        if 'conexao' in locals() or 'conexao' in globals():
+            conexao.close()
+
+
+
+
 # -------------------------- FORMULÁRIO -------------------------- #
 
 # Adicionando um label para inserir o nome do produto
@@ -145,8 +217,12 @@ entry_data = tk.Entry(frameInserirProdutos, width=50)
 entry_data.grid(row=5, column=1)
 
 # Adicionando botão inserir produtos
-btn_inserir = tk.Button(frameInserirProdutos, width=50, text="Inserir", command=inserir_click)
+btn_inserir = tk.Button(frameInserirProdutos, width=50, text="Inserir produtos", command=inserir_click)
 btn_inserir.grid(row=7, column=0, columnspan=2, pady=10)
+
+# Botão para remover produtos
+btn_remover = tk.Button(frameInserirProdutos, width=50, text="Remover útimo produto inserido", command=remover_produto)
+btn_remover.grid(row=8, column=0, columnspan=2, pady=10)
 
 # Função para limpar o formulário
 limpar_formulario()
