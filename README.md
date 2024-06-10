@@ -18,10 +18,23 @@ Para armazenamento de dados será criado as seguintes colunas :
 
 ## Desenvolvimento:
 
-* Desenvolvimento de um sistema python para armazenamento de estoque e construção de um dashboard no power BI do estabelecimento “Confraria do Café”.
-* O Sistema tem o objetivo de trazer uma interface de fácil uso para armazenamento, com uso de Python e SQL com integração do MySQL para inserir ou deletar os produtos.
-* No dashboard é possível ter o controle de produtos inseridos por data, categoria e unidade, além do valor de custo com base nos mesmo atributos, cartões e filtros.
+Desenvolvimento de um sistema python para armazenamento de estoque e construção de um dashboard no power BI do estabelecimento “Confraria do Café”.
 
+1. O Sistema tem o objetivo de trazer uma interface de fácil uso para armazenamento, com uso de Python e SQL com integração do MySQL para inserir ou deletar os produtos.
+
+![sistemapy](imagemsi/sistema.png)
+  
+2. No dashboard é possível ter o controle de produtos inseridos por data, categoria e unidade, além do valor de custo com base nos mesmo atributos, cartões e filtros.
+
+![dash](imagemsi/powerbi.png)
+
+## Equipe:
+
+1. [Micael José de Lima - Desenvolvedor](https://github.com/micaellimaj)
+2. [Kauã Vinícius Pereira Santos - Desenvolvedor](https://github.com/kauavinips)
+3. [Wendel Vinicius de Oliveira - Desenvolvedor](https://github.com/WendelAgra)
+4. [Lucas Figueiroa de Souza - Documentação](https://github.com/LucasFig04)
+5. Jucí da Silva Beserra - Documentação
 
 
 
