@@ -25,7 +25,12 @@ Desenvolvimento de um sistema python para armazenamento de estoque e construçã
 ![sistemapy](imagemsi/sistema.png)
   
 2. No dashboard é possível ter o controle de produtos inseridos por data, categoria e unidade, além do valor de custo com base nos mesmo atributos, cartões e filtros.
-
+<table>
+  <tr>
+    <td><img src="imagemsi/bi1.png" alt="pagina1" width="400"/></td>
+    <td><img src="imagemsi/bi2.png" alt="pagina2" width="400"/></td>
+  </tr>
+</table>
 ![dash](imagemsi/powerbi.png)
 
 ## Equipe:
