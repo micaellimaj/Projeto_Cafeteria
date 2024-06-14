@@ -31,7 +31,7 @@ Desenvolvimento de um sistema python para armazenamento de estoque e construçã
     <td><img src="imagemsi/bi2.png" alt="pagina2" width="400"/></td>
   </tr>
 </table>
-![dash](imagemsi/powerbi.png)
+
 
 ## Equipe:
 
